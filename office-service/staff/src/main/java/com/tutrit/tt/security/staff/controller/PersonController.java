@@ -21,6 +21,7 @@ public class PersonController {
     @GetMapping("/person")
     public ModelAndView getPersons() {
         ModelAndView mov = new ModelAndView();
+        mov.addObject("title", "Stuff");
         mov.setViewName("person_list");
         mov.addObject("persons", personRepository.findAll());
         return mov;
@@ -29,6 +30,7 @@ public class PersonController {
     @GetMapping("/person/{id}")
     public ModelAndView getPersonById(@PathVariable Long id) {
         ModelAndView mov = new ModelAndView();
+        mov.addObject("title", "Person");
         mov.setViewName("person_card");
         mov.addObject("person", personRepository.findById(id).get());
         return mov;

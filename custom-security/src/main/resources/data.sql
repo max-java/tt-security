@@ -1,5 +1,4 @@
-drop table if exists person;
-create table person
+create table if not exists person
 (
     person_id bigint not null unique,
     card_id   bigint unique,

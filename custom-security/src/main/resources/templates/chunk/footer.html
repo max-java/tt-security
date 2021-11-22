@@ -1,0 +1,21 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head/>
+<body>
+
+<th:block th:fragment="footer">
+    <footer class="footer">
+        <div class="container">
+            <th:block th:if="${session.principal} == null">
+                <h4>Anonymous user</h4>
+            </th:block>
+            <th:block th:unless="${session.principal} == null">
+                <h4 th:text="|Logged as ${session.principal.fullName}|"/>
+                <p th:text="${session.principal}"/>
+                <a href="/logout">logout</a>
+            </th:block>
+        </div>
+    </footer>
+</th:block>
+
+</body>
+</html>

@@ -48,6 +48,11 @@
 			<version>3.0.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.tutrit</groupId>
+			<artifactId>tt-security-custom</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

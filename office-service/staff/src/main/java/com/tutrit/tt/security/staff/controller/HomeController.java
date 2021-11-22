@@ -10,6 +10,7 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView openHomePage() {
         ModelAndView mov = new ModelAndView();
+        mov.addObject("title", "Home");
         mov.setViewName("home");
         return mov;
     }
