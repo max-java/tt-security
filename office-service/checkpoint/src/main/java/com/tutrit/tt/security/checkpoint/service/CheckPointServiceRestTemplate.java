@@ -29,6 +29,8 @@ public class CheckPointServiceRestTemplate {
     public void checkinByRandomCardIdWithRestTemplate() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "text/plain");
+        headers.set("applicationId", "checkpointApp");
+        headers.set("applicationPass", "123456789");
         HttpEntity<String> statusUpdate = new HttpEntity<>(statuses[randomArrayIndex(statuses.length)], headers);
 
         String cardId = cards[randomArrayIndex(cards.length)];

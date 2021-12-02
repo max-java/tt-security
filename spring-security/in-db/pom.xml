@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tutrit</groupId>
-	<artifactId>tt-security-in-memory</artifactId>
+	<artifactId>tt-security-in-db</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tt-security-in-memory</name>
-	<description>Demo project for Spring Security</description>
+	<name>tt-security-in-db</name>
+	<description>Demo project for Spring Security: database configuration</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -37,6 +37,12 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>com.h2database</groupId>

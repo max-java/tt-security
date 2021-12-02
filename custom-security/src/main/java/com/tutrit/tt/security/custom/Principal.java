@@ -10,4 +10,5 @@ public class Principal {
     Long id;
     String fullName;
     String password;
+    String[] roles; //USER, ADMIN
 }

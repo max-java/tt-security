@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class LoginController {
 
-    AuthService authService;
+    AuthProvider authProvider;
 
     @GetMapping("/login")
     public ModelAndView openLoginForm() {
@@ -30,8 +30,9 @@ public class LoginController {
     @PostMapping("/login")
     public String authenticateUser(@ModelAttribute Principal principal,
                                    HttpServletRequest request) {
-        if (authService.authorize(principal.getId(), principal.getPassword())) {
+        if (authProvider.authorize(principal.getId(), principal.getPassword())) {
             principal.setFullName("Maksim Shelkovich");
+            principal.setRoles(authProvider.getUserRoles());
             request.getSession().setAttribute("principal", principal);
         }
         return "redirect:/";
