@@ -5,7 +5,7 @@
 
 	<groupId>com.tutrit</groupId>
 	<artifactId>tt-security-custom</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 
 	<name>tt-security-custom</name>
 	<description>Demo project for Spring Security: custom implementation of security</description>
@@ -49,5 +49,17 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.22</version>
 		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+		</dependency>
+
+
 	</dependencies>
 </project>

@@ -1,4 +1,4 @@
-package com.tutrit.tt.security.staff.config;
+package com.tutrit.tt.security.wiki.config;
 
 import com.tutrit.tt.security.custom.AuthProvider;
 import com.tutrit.tt.security.custom.AuthRoboProvider;
@@ -97,7 +97,7 @@ public class SecurityConfig {
 
             @Override
             public String getRedirectedUrl() {
-                return "http://localhost:8082";
+                return "http://localhost:8085";
             }
         };
     }
