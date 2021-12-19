@@ -1,0 +1,18 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head/>
+<body>
+
+<th:block th:fragment="footer">
+    <footer class="footer">
+        <div class="container">
+            <h4 th:text="|Logged as ${T(com.tutrit.tt.security.staff.securityconfig.UserDetailsServiceImpl).getCurrentUser().getUsername()}|"/>
+            <p th:text="${T(com.tutrit.tt.security.staff.securityconfig.UserDetailsServiceImpl).getCurrentUser()}"/>
+            <th:block th:if="${T(com.tutrit.tt.security.staff.securityconfig.UserDetailsServiceImpl).isUserLoggedIn()} == true">
+                <a href="/logout">logout</a>
+            </th:block>
+        </div>
+    </footer>
+</th:block>
+
+</body>
+</html>
