@@ -3,7 +3,7 @@ package com.tutrit.tt.security.custom;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -12,8 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
-import static  com.tutrit.tt.security.custom.MyProperties.REDIRECTED_URL_ATTRIBUTE;
+
+import static com.tutrit.tt.security.custom.MyProperties.REDIRECTED_URL_ATTRIBUTE;
 
 @Component
 @RequiredArgsConstructor
@@ -24,13 +24,14 @@ public class AuthFilter extends OncePerRequestFilter {
     AuthRoboProvider authRoboProvider;
     AuthProvider authProvider;
     AuthServerProvider authServerProvider;
-    PrincipalMapper principalMapper;
+    AuthProxy authProxy;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         if (authProvider.isEnabled()) {
+            logRequest(request);
             if (request.getRequestURI().equals("/login") && request.getMethod().toLowerCase().equals("post")) {
                 filterChain.doFilter(request, response);
                 return;
@@ -41,8 +42,15 @@ public class AuthFilter extends OncePerRequestFilter {
                 return;
             }
 
+            if (request.getRequestURI().equals("/validateToken")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+
             if (request.getSession().getAttribute("principal") != null) {
                 Principal principal = (Principal) request.getSession().getAttribute("principal");
+                authProxy.validatePrincipal(principal);
                 if (authorizationProvider.isUserHasAccess(request.getRequestURI(), principal)) {
                     filterChain.doFilter(request, response);
                     return;
@@ -54,6 +62,7 @@ public class AuthFilter extends OncePerRequestFilter {
             if(request.getParameter("principal") != null && !request.getParameter("principal").isBlank()) {
 
                 Principal principal = Principal.deserializeFromString(request.getParameter("principal"));
+                authProxy.validatePrincipal(principal);
                 request.getSession().setAttribute("principal", principal);
                 filterChain.doFilter(request, response);
                 return;
@@ -72,5 +81,9 @@ public class AuthFilter extends OncePerRequestFilter {
 //        String encodedRedirectedUrl = UriUtil.encode("/login?"+REDIRECTED_URL_ATTRIBUTE+"="+authServerProvider.getRedirectedUrl());
 
         response.sendRedirect(authServerProvider.getUrl()+"/login?"+REDIRECTED_URL_ATTRIBUTE+"="+authServerProvider.getRedirectedUrl());
+    }
+
+    private void logRequest(HttpServletRequest request) {
+        LoggerFactory.getLogger(AuthFilter.class).info("{}", request.getRequestURI());
     }
 }

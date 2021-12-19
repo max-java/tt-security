@@ -24,6 +24,7 @@ public class LoginController {
 
     AuthProvider authProvider;
     PrincipalMapper principalMapper;
+    TokenService tokenService;
 
     @GetMapping("/login")
     public ModelAndView openLoginForm(HttpServletRequest request) {
@@ -41,10 +42,12 @@ public class LoginController {
             principal.setFullName("Maksim Shelkovich");
             principal.setRoles(authProvider.getUserRoles());
             principal.setIsAuthenticated(true);
+            principal.setToken(tokenService.generateToken(principal));
             request.getSession().setAttribute("principal", principal);
+            String redirectionValue = request.getParameter(REDIRECTED_URL_ATTRIBUTE)+"?principal="+principal.serializeToString();
+            return "redirect:"+ redirectionValue;
         }
-        String redirectionValue = request.getParameter(REDIRECTED_URL_ATTRIBUTE)+"?principal="+principal.serializeToString();
-        return "redirect:"+ redirectionValue;
+        return "redirect:/";
     }
 
     @GetMapping(value="/logout")

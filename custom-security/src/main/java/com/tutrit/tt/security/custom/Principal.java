@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -17,9 +18,11 @@ public class Principal {
     String password;
     String[] roles; //USER, ADMIN
     Boolean isAuthenticated = false;
+    String token = "null";
 
     public String serializeToString() {
-        return "id," + id +
+        return "token," + token +
+                ",id," + id +
                 ",fullName," + fullName +
                 ",password," + password +
                 ",isAuthenticated," + isAuthenticated +
@@ -35,10 +38,11 @@ public class Principal {
         Principal principal = new Principal();
         String[] values = string.split(",");
 
-        principal.setId(Long.valueOf(values[1]));
-        principal.setFullName(values[3]);
-        principal.setIsAuthenticated(Boolean.valueOf(values[7]));
-        List<String> roles = IntStream.range(10, values.length)
+        principal.setToken(values[1]);
+        principal.setId(Long.valueOf(values[3]));
+        principal.setFullName(values[5]);
+        principal.setIsAuthenticated(Boolean.valueOf(values[9]));
+        List<String> roles = IntStream.range(12, values.length)
                 .boxed()
                 .map(i -> values[i])
                 .map(el -> String.valueOf(el))
@@ -47,5 +51,20 @@ public class Principal {
         principal.setRoles(roles.toArray(new String[roles.size()]));
 
         return principal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Principal principal = (Principal) o;
+        return Objects.equals(id, principal.id) && Objects.equals(fullName, principal.fullName) && Arrays.equals(roles, principal.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, fullName);
+        result = 31 * result + Arrays.hashCode(roles);
+        return result;
     }
 }
