@@ -1,3 +1,7 @@
+This service demonstrates work for SpringSecurity. 
+It is a single service without sso server and possibility to 
+communicate with other services. Need to prove basic Spring Security concepts.
+
 Service to track office staff
 Predefined data is in `data.sql`
 

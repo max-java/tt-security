@@ -19,6 +19,8 @@ public class User {
     @Id
     String username;
     String password;
+    // TODO: 1/16/22 add filter by custom user field in PostAuthorize
+    String fullName;
     @OneToMany(fetch = FetchType.EAGER)
     Set<Role> roles = new HashSet<>();
 }

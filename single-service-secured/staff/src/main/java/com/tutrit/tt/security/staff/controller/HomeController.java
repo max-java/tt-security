@@ -1,6 +1,7 @@
 package com.tutrit.tt.security.staff.controller;
 
 
+import com.tutrit.tt.security.staff.aspects.Log;
 import com.tutrit.tt.security.staff.securityconfig.UserDetailsServiceImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import java.security.Principal;
 @Controller
 public class HomeController {
 
+    @Log
     @GetMapping("/")
     public ModelAndView openHomePage() {
         ModelAndView mov = new ModelAndView();

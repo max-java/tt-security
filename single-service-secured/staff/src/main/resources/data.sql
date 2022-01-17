@@ -22,7 +22,8 @@ values (1, 1111, 'Maksim Shelkovich', null),
 create table user
 (
     username    varchar(128),
-    password    varchar(255)
+    password    varchar(255),
+    full_name    varchar(255)
 );
 
 create table role
@@ -40,10 +41,10 @@ create table user_roles
 
 insert into role (role) values ('ROLE_USER'), ('ROLE_ADMIN'), ('ROLE_GUEST');
 
-insert into user (username, password) values
-('user', '$2a$10$GnVX9H0H9Mdg/p7SVJTduuMUTZmva9KU4Em9OsnDyIN7nd/lzY2i2'),
-('admin', '$2a$10$wr25s1MhZTM8irlDf6hlO.ig.QGurg.L7hzucv9RxacJyxP4G5ltG'),
-('guest', '$2a$10$XPfSnYROEnPn9sFStRkwcO5OQgFMSbXSAJN71FqzYpOWx9ruJH1e2');
+insert into user (username, full_name, password) values
+('admin', 'Maksim Shelkovich', '$2a$10$wr25s1MhZTM8irlDf6hlO.ig.QGurg.L7hzucv9RxacJyxP4G5ltG'),
+('user', 'Ilia Shelkovich', '$2a$10$GnVX9H0H9Mdg/p7SVJTduuMUTZmva9KU4Em9OsnDyIN7nd/lzY2i2'),
+('guest', '', '$2a$10$XPfSnYROEnPn9sFStRkwcO5OQgFMSbXSAJN71FqzYpOWx9ruJH1e2');
 
 -- user - $2a$10$GnVX9H0H9Mdg/p7SVJTduuMUTZmva9KU4Em9OsnDyIN7nd/lzY2i2
 -- admin - $2a$10$wr25s1MhZTM8irlDf6hlO.ig.QGurg.L7hzucv9RxacJyxP4G5ltG

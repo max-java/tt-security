@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -58,10 +59,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     .stream()
                     .map(grantedAuthority -> new Role(RoleType.valueOf(grantedAuthority.getAuthority())))
                     .collect(Collectors.toSet());
-            return new User(currentUser.getUsername(), null, roles);
+            return new User(currentUser.getUsername(), null, null, roles);
         } catch (Exception e) {
-            return new User("UserAnonymous", null, null);
+            return new User("UserAnonymous", null, null, null);
         }
+    }
+
+    public String getFullUserName() {
+        org.springframework.security.core.userdetails.User currentUser = (org.springframework.security.core.userdetails.User)
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> userO = userDao.findById(currentUser.getUsername());
+        if(userO.isPresent()) {
+            return userO.get().getFullName();
+        }
+        return "";
     }
 
     public static boolean isUserLoggedIn() {
@@ -75,7 +86,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(!password.equals(retypePassword))  {
             throw new RuntimeException();
         }
-        var user = new User(username, bCryptPasswordEncoder.encode(password), Set.of(new Role(RoleType.ROLE_GUEST)));
+        var user = new User(username, bCryptPasswordEncoder.encode(password), null, Set.of(new Role(RoleType.ROLE_GUEST)));
         try {
             userDao.save(user);
         } catch (Exception e) {
