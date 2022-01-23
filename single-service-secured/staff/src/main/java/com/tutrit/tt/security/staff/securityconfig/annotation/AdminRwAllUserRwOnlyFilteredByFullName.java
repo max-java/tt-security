@@ -10,12 +10,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-//@PostFilter("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and filterObject.fullName == authentication.name)")
 @PostFilter("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and @userDetailsServiceImpl.getFullUserName() == filterObject.fullName)")
 public @interface AdminRwAllUserRwOnlyFilteredByFullName {
 
 }
-//@PostFilter("hasRole('ROLE_ADMIN') " +
-//        "or ((hasRole('ROLE_USER') " +
-//        "and filterObject.fullName == {userDao.findById(authentication.name)}).getFullName())"
-//)
