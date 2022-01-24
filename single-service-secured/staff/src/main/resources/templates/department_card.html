@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="chunk/head :: head" />
+<body>
+<div class="container h-100">
+    <div class="row justify-content-center align-items-center">
+        <h1>Department description</h1>
+        <form class="form-horizontal" method="post"
+              th:action="|/department/${department.getDepartmentId()}|" th:object="${department}" >
+            <div class="mb-3">
+                <label for="personId" class="form-label">Departments Id</label>
+                <input type="text" class="form-control" id="personId" th:field="*{departmentId}">
+            </div>
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Name of Department</label>
+                <input type="text" class="form-control" id="fullName" th:field="*{departmentName}">
+            </div>
+            <button class="btn btn-primary float-end mt-2" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+<th:block th:include="chunk/footer :: footer" />
+</body>
+</html>

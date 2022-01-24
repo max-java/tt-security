@@ -5,22 +5,19 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Person implements AclAble {
+public class Department implements AclAble {
     @Id
-    Long personId;
-    Long cardId;
-    @Column(columnDefinition = "boolean default false")
-    Boolean inOffice;
-    String fullName;
+    Long departmentId;
+    String departmentName;
 
     public Long getId() {
-        return this.personId;
+        return this.departmentId;
     }
+
 }

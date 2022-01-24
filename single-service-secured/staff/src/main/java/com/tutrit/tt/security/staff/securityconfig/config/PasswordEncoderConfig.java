@@ -1,4 +1,4 @@
-package com.tutrit.tt.security.staff.securityconfig;
+package com.tutrit.tt.security.staff.securityconfig.config;
 
 
 import org.springframework.context.annotation.Bean;

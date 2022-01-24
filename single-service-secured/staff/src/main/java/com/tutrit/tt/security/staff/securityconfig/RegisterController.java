@@ -1,5 +1,6 @@
 package com.tutrit.tt.security.staff.securityconfig;
 
+import com.tutrit.tt.security.staff.securityconfig.config.UserDetailsServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

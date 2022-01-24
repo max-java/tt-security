@@ -1,7 +1,10 @@
-package com.tutrit.tt.security.staff.securityconfig;
+package com.tutrit.tt.security.staff.securityconfig.config;
 
+import com.tutrit.tt.security.staff.securityconfig.user.Role;
+import com.tutrit.tt.security.staff.securityconfig.user.RoleType;
+import com.tutrit.tt.security.staff.securityconfig.user.User;
+import com.tutrit.tt.security.staff.securityconfig.user.UserDao;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,7 +72,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         org.springframework.security.core.userdetails.User currentUser = (org.springframework.security.core.userdetails.User)
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<User> userO = userDao.findById(currentUser.getUsername());
-        if(userO.isPresent()) {
+        if (userO.isPresent()) {
             return userO.get().getFullName();
         }
         return "";
@@ -83,7 +86,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public void registerUser(String username, String password, String retypePassword) {
-        if(!password.equals(retypePassword))  {
+        if (!password.equals(retypePassword)) {
             throw new RuntimeException();
         }
         var user = new User(username, bCryptPasswordEncoder.encode(password), null, Set.of(new Role(RoleType.ROLE_GUEST)));

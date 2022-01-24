@@ -1,4 +1,4 @@
-package com.tutrit.tt.security.staff.securityconfig;
+package com.tutrit.tt.security.staff.securityconfig.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

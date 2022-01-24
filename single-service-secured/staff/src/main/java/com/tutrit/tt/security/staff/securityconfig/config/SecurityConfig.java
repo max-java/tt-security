@@ -1,7 +1,6 @@
-package com.tutrit.tt.security.staff.securityconfig;
+package com.tutrit.tt.security.staff.securityconfig.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
