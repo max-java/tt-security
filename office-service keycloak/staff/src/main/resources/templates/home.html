@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="chunk/head :: head" />
+<body>
+<div class="container">
+    <div class="row">
+        <h1>Welcome to office!</h1>
+        <ul>
+            <li><a href="/person">staff</a></li>
+            <li><a href="http://localhost:8085/">wiki</a></li>
+        </ul>
+    </div>
+</div>
+<th:block th:include="chunk/footer :: footer" />
+</body>
+</html>

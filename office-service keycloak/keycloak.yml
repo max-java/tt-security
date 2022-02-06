@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  keycloak:
+    image: sleighzy/keycloak:latest
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgresql
+      DB_DATABASE: keycloak
+      DB_PORT: 5432
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: keycloak
+      KEYCLOAK_USER: keycloak
+      KEYCLOAK_PASSWORD: keycloak
+#      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-settings.json -Dkeycloak.profile.feature.upload_scripts=enabled
+    ports:
+      - "8080:8080"
+      - "443:8443"
+      - "9990:9990"
+    volumes:
+#      - ./themes/tutrit:/opt/jboss/keycloak/themes/tutrit
+      - ./imports:/opt/jboss/keycloak/imports
+    depends_on:
+      - postgresql
+
+  postgresql:
+    restart: always
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - ./.data/db:/var/lib/postgresql/data
+#      - ./imports/users.sql:/docker-entrypoint-initdb.d/users.sql
